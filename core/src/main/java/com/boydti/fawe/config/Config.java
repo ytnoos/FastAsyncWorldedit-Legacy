@@ -440,16 +440,22 @@ public class Config {
     }
 
     /**
-     * Set some field to be accesible
-     *
-     * @param field
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
+     * Set some field to be accessible.
      */
     private void setAccessible(Field field) throws NoSuchFieldException, IllegalAccessException {
         field.setAccessible(true);
-        Field modifiersField = Field.class.getDeclaredField("modifiers");
-        modifiersField.setAccessible(true);
-        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+        if (Modifier.isFinal(field.getModifiers())) {
+            try {
+                Field lookupField = MethodHandles.Lookup.class.getDeclaredField("IMPL_LOOKUP");
+                lookupField.setAccessible(true);
+
+                // blank out the final bit in the modifiers int
+                ((MethodHandles.Lookup) lookupField.get(null))
+                        .findSetter(Field.class, "modifiers", int.class)
+                        .invokeExact(field, field.getModifiers() & ~Modifier.FINAL);
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
