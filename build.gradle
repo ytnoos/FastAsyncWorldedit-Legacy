@@ -113,6 +113,8 @@ subprojects {
         maven {url "https://maven.elmakers.com/repository/"}
         maven {url "https://ci.ender.zone/plugin/repository/everything/"}
         maven {url "https://plotsquared.com/mvn/"}
+        maven {url "https://jitpack.io"}
+        maven {url "https://repo.codemc.org/repository/maven-public"}
     }
 }
 task aggregatedJavadocs(type: Javadoc, description: 'Generate javadocs from all child projects as if it was a single project', group: 'Documentation') {
