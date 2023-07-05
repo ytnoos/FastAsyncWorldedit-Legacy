@@ -510,20 +510,6 @@ public class FaweBukkit implements IFawe, Listener {
                 MainUtil.handleError(e);
             }
         }
-        final Plugin factionsPlugin = Bukkit.getServer().getPluginManager().getPlugin("Factions");
-        if ((factionsPlugin != null) && factionsPlugin.isEnabled()) {
-            try {
-                managers.add(new FactionsFeature(factionsPlugin, this));
-                Fawe.debug("Plugin 'Factions' found. Using it now.");
-            } catch (final Throwable e) {
-                try {
-                    managers.add(new FactionsOneFeature(factionsPlugin, this));
-                    Fawe.debug("Plugin 'FactionsUUID' found. Using it now.");
-                } catch (Throwable e3) {
-                    MainUtil.handleError(e);
-                }
-            }
-        }
         final Plugin residencePlugin = Bukkit.getServer().getPluginManager().getPlugin("Residence");
         if ((residencePlugin != null) && residencePlugin.isEnabled()) {
             try {

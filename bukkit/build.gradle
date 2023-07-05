@@ -14,16 +14,13 @@ dependencies {
     compile 'org.bukkit.craftbukkit:Craftbukkit_1_8:1.8.8'
     compile 'org.bukkit.craftbukkit:Craftbukkit_1_7:1.7.10'
     compile 'com.github.MilkBowl:VaultAPI:1.7'
-    compile 'com.massivecraft:factions:2.8.0'
-    compile 'com.factionsone:FactionsOne:1.2.2'
     compile 'me.ryanhamshire:GriefPrevention:11.5.2'
-    compile 'com.massivecraft:mcore:7.0.1'
     compile 'net.jzx7:regios:5.9.9'
     compile 'com.bekvon.bukkit.residence:Residence:4.5._13.1'
     compile 'com.palmergames.bukkit:towny:0.84.0.9'
     compile 'com.worldcretornica:plotme_core:0.16.3'
-    compile 'junit:junit:4.11'
-    compile 'com.sk89q.worldedit:worldedit-bukkit:6.1.4-SNAPSHOT'
+    compile 'junit:junit:4.13.1'
+    compile 'com.sk89q.worldedit:worldedit-bukkit:6.1.5'
     compile 'com.sk89q.worldedit:worldedit-core:6.1.4-SNAPSHOT'
     compile 'com.thevoxelbox.voxelsniper:voxelsniper:5.171.0'
     compile 'com.comphenix.protocol:ProtocolLib-API:4.4.0'
@@ -43,41 +40,7 @@ processResources {
                 version: project.parent.version
         )
     }
-}
-
-jar.archiveName="fawe-bukkit-${project.parent.version}.jar"
-jar.destinationDir = file '../mvn/com/boydti/fawe-bukkit/' + project.parent.version
-task createPom << {
-    pom {
-        project {
-            groupId 'com.boydti'
-            artifactId 'fawe-bukkit'
-            version project.parent.version
-        }
-    }
-    .getEffectivePom()
-            .setDependencies(new ArrayList<>())
-            .writeTo("../mvn/com/boydti/fawe-bukkit/${project.parent.version}/fawe-bukkit-${project.parent.version}.pom")
-    pom {
-        project {
-            groupId 'com.boydti'
-            artifactId 'fawe-bukkit'
-            version 'latest'
-        }
-    }
-    .getEffectivePom()
-            .setDependencies(new ArrayList<>())
-            .writeTo("../mvn/com/boydti/fawe-bukkit/latest/fawe-bukkit-latest.pom")
-}
-task copyFiles {
-    doLast {
-        copy {
-            from "../mvn/com/boydti/fawe-bukkit/${project.parent.version}/"
-            into '../mvn/com/boydti/fawe-bukkit/latest/'
-            include('*.jar')
-            rename ("fawe-bukkit-${project.parent.version}.jar", 'fawe-bukkit-latest.jar')
-        }
-    }
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 apply plugin: 'com.github.johnrengelman.shadow'
@@ -88,8 +51,8 @@ shadowJar {
         include(dependency('co.aikar:fastutil-lite:1.0'))
         include(dependency(':core'))
     }
-    archiveName = "${parent.name}-${project.name}-${parent.version}.jar"
-    destinationDir = file '../target'
+    archiveFileName = "${parent.name}-${project.name}-${parent.version}.jar"
+    destinationDirectory = file '../target'
     relocate('com.google.gson', 'com.sk89q.worldedit.internal.gson')
 }
 shadowJar.doLast {

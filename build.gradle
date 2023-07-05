@@ -2,10 +2,10 @@ buildscript {
     repositories {
         mavenCentral()
         maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
-        jcenter()
+        maven { url = "https://plugins.gradle.org/m2/" }
     }
 	dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:6.1.0'
         classpath 'org.ajoberstar:grgit:1.7.0'
     }
     configurations.all {
@@ -82,7 +82,6 @@ description = """FastAsyncWorldEdit"""
 subprojects {
 
     apply plugin: 'java'
-    apply plugin: 'maven'
     apply plugin: 'eclipse'
     apply plugin: 'idea'
 
@@ -94,13 +93,12 @@ subprojects {
     }
 
     repositories {
-        maven {url "https://mvnrepository.com/artifact/"}
         mavenCentral()
+        mavenLocal()
         maven {url "https://repo.dmulloy2.net/content/groups/public/"}
         maven {url "https://repo.destroystokyo.com/repository/maven-public//"}
         //maven {url "https://ci.emc.gs/nexus/content/groups/aikar/" }
         maven {url "https://ci.athion.net/plugin/repository/tools/"}
-        mavenLocal()
         maven {url "https://hub.spigotmc.org/nexus/content/groups/public/"}
         maven {url "https://maven.enginehub.org/repo/"}
         maven {url "https://repo.maven.apache.org/maven2"}
@@ -112,7 +110,7 @@ subprojects {
         maven {url "https://repo.dmulloy2.net/nexus/repository/public/"}
         maven {url "https://maven.elmakers.com/repository/"}
         maven {url "https://ci.ender.zone/plugin/repository/everything/"}
-        maven {url "https://plotsquared.com/mvn/"}
+        maven {url "https://repo.papermc.io/repository/maven-public/"}
         maven {url "https://jitpack.io"}
         maven {url "https://repo.codemc.org/repository/maven-public"}
     }

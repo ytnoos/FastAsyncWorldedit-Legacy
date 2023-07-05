@@ -106,7 +106,7 @@ public class BrushBoundBaseBlock extends BaseBlock implements BrushHolder {
             } else {
                 displayMap = ReflectionUtils.getMap(display.getValue());
             }
-            displayMap.put("Lore", FaweCache.asTag(json.split("\\r?\\n")));
+            displayMap.put("Lore", FaweCache.asTag((Object[]) json.split("\\r?\\n")));
             String primary = (String) tool.getPrimary().getSettings().get(BrushSettings.SettingType.BRUSH);
             String secondary = (String) tool.getSecondary().getSettings().get(BrushSettings.SettingType.BRUSH);
             if (primary == null) primary = secondary;
