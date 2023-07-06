@@ -184,13 +184,7 @@ public class CFIPacketListener implements Listener {
                         int id = packet.getIntegers().read(0);
                         PacketContainer reply = new PacketContainer(PacketType.Play.Client.TELEPORT_ACCEPT);
                         reply.getIntegers().write(0, id);
-                        try {
-                            protocolmanager.recieveClientPacket(player, reply);
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        } catch (InvocationTargetException e) {
-                            e.printStackTrace();
-                        }
+                        protocolmanager.receiveClientPacket(player, reply);
                         event.setCancelled(true);
                     }
                 }
@@ -254,11 +248,7 @@ public class CFIPacketListener implements Listener {
         container.getBlockPositionModifier().write(0, new BlockPosition(pt.getBlockX(), pt.getBlockY(), pt.getBlockZ()));
         WrappedBlockData bd = WrappedBlockData.createData(Material.getMaterial(block.getId()), block.getData());
         container.getBlockData().write(0, bd);
-        try {
-            protocolmanager.sendWirePacket(plr, WirePacket.fromPacket(container));
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        protocolmanager.sendWirePacket(plr, WirePacket.fromPacket(container));
     }
 
     private VirtualWorld getGenerator(PacketEvent event) {

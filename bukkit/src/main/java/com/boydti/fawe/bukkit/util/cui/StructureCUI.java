@@ -113,11 +113,7 @@ public class StructureCUI extends CUI {
         PacketConstructor statusCtr = manager.createPacketConstructor(PacketType.Play.Server.ENTITY_STATUS, player, (byte) 28);
         PacketContainer status = statusCtr.createPacket(player, (byte) 28);
 
-        try {
-            manager.sendServerPacket(player, status);
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        manager.sendServerPacket(player, status);
     }
 
     private void sendNbt(Vector pos, NbtCompound compound) {
@@ -130,11 +126,7 @@ public class StructureCUI extends CUI {
         blockNbt.getNbtModifier().write(0, compound);
 
 
-        try {
-            manager.sendServerPacket(player, blockNbt);
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        manager.sendServerPacket(player, blockNbt);
     }
 
     public synchronized void update() {

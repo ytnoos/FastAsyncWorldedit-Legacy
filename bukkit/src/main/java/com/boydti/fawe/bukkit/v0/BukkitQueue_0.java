@@ -120,33 +120,29 @@ public abstract class BukkitQueue_0<CHUNK, CHUNKSECTIONS, SECTION> extends NMSMa
         ProtocolManager manager = ProtocolLibrary.getProtocolManager();
         WirePacket packet = null;
         int viewDistance = Bukkit.getViewDistance();
-        try {
-            for (int i = 0; i < players.length; i++) {
-                int cx = chunk.getX();
-                int cz = chunk.getZ();
+        for (int i = 0; i < players.length; i++) {
+            int cx = chunk.getX();
+            int cz = chunk.getZ();
 
-                Player player = ((BukkitPlayer) players[i]).parent;
-                Location loc = player.getLocation();
+            Player player = ((BukkitPlayer) players[i]).parent;
+            Location loc = player.getLocation();
 
-                if (Math.abs((loc.getBlockX() >> 4) - cx) <= viewDistance && Math.abs((loc.getBlockZ() >> 4) - cz) <= viewDistance) {
-                    if (packet == null) {
-                        byte[] data;
-                        byte[] buffer = new byte[8192];
-                        if (chunk instanceof LazyFaweChunk) {
-                            chunk = (FaweChunk) chunk.getChunk();
-                        }
-                        if (chunk instanceof MCAChunk) {
-                            data = new MCAChunkPacket((MCAChunk) chunk, true, true, hasSky()).apply(buffer);
-                        } else {
-                            data = new FaweChunkPacket(chunk, true, true, hasSky()).apply(buffer);
-                        }
-                        packet = new WirePacket(PacketType.Play.Server.MAP_CHUNK, data);
+            if (Math.abs((loc.getBlockX() >> 4) - cx) <= viewDistance && Math.abs((loc.getBlockZ() >> 4) - cz) <= viewDistance) {
+                if (packet == null) {
+                    byte[] data;
+                    byte[] buffer = new byte[8192];
+                    if (chunk instanceof LazyFaweChunk) {
+                        chunk = (FaweChunk) chunk.getChunk();
                     }
-                    manager.sendWirePacket(player, packet);
+                    if (chunk instanceof MCAChunk) {
+                        data = new MCAChunkPacket((MCAChunk) chunk, true, true, hasSky()).apply(buffer);
+                    } else {
+                        data = new FaweChunkPacket(chunk, true, true, hasSky()).apply(buffer);
+                    }
+                    packet = new WirePacket(PacketType.Play.Server.MAP_CHUNK, data);
                 }
+                manager.sendWirePacket(player, packet);
             }
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
         }
     }
 
