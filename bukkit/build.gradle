@@ -11,7 +11,7 @@ dependencies {
     compile 'org.bukkit.craftbukkit:Craftbukkit_1_11:1.11'
     compile 'org.bukkit.craftbukkit:Craftbukkit_1_10:1.10'
     compile 'org.bukkit.craftbukkit:Craftbukkit_1_9:1.9.4'
-    compile 'app.ashcon:sportpaper:1.8.8-R0.1-SNAPSHOT'
+    compile 'org.bukkit.craftbukkit:Craftbukkit_1_8:1.8.8'
     compile 'org.bukkit.craftbukkit:Craftbukkit_1_7:1.7.10'
     compile 'com.github.MilkBowl:VaultAPI:1.7'
     compile 'me.ryanhamshire:GriefPrevention:11.5.2'
