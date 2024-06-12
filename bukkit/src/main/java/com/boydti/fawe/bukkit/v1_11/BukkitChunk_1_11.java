@@ -27,9 +27,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
-
-import io.papermc.lib.PaperLib;
 import net.minecraft.server.v1_11_R1.Block;
 import net.minecraft.server.v1_11_R1.BlockPosition;
 import net.minecraft.server.v1_11_R1.ChunkSection;
@@ -161,12 +158,7 @@ public class BukkitChunk_1_11 extends CharFaweChunk<Chunk, com.boydti.fawe.bukki
 
     @Override
     public Chunk getNewChunk() {
-        try {
-            return PaperLib.getChunkAtAsync(getParent().getWorld(), getX(), getZ(), true, true).get(); // Get chunks async
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return ((com.boydti.fawe.bukkit.v1_11.BukkitQueue_1_11) getParent()).getWorld().getChunkAt(getX(), getZ());
     }
 
     public DataPaletteBlock newDataPaletteBlock() {
