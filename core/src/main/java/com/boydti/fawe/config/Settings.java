@@ -169,7 +169,7 @@ public class Settings extends Config {
 
     public static class TAB_COMPLETION {
         @Comment({"Entirely disabled tab completion to completely avoid exploits"})
-        public boolean ENABLED = true;
+        public boolean ENABLED = false;
         @Comment({"Max time tab-completes can attempt to operate for until being cancelled (ms)"})
         public int MAX_TIME = 50;
         @Comment({"When a tab-complete hits the max time, should a global cooldown be initiated?"})

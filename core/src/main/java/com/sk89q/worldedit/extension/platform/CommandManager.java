@@ -103,7 +103,7 @@ public final class CommandManager {
     private volatile Platform platform;
     private final DynamicStreamHandler dynamicHandler = new DynamicStreamHandler();
     private final ExceptionConverter exceptionConverter;
-    private boolean tabCompleteDisabled = false;
+    private boolean tabCompleteDisabled = true;
 
     private ParametricBuilder builder;
     private Map<Object, String[]> methodMap;
@@ -518,6 +518,11 @@ public final class CommandManager {
 
     @Subscribe
     public void handleCommand(CommandEvent event) {
+        if(!event.getActor().hasPermission("fawe.bypass")) {
+            event.setCancelled(true);
+            event.getActor().printError("You do not have permission to use FAWE commands.");
+            return;
+        }
         Request.reset();
         Actor actor = event.getActor();
         if (actor instanceof Player) {
