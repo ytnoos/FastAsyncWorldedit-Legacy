@@ -12,6 +12,7 @@
 /.idea
 *.log
 gradle.log
+
 /lib
 /core/lib
 /bukkit/lib
